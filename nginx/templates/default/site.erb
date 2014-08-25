@@ -3,6 +3,15 @@ server {
   server_name  <%= @application[:domains].join(" ") %> <%= node[:hostname] %>;
   access_log  <%= node[:nginx][:log_dir] %>/<%= @application[:domains].first %>.access.log;
 
+  <% node['nginx']['proxies'].each do |proxy| %>
+  location <%= proxy['location'] %> {
+    <% if proxy['rewrite'] %>
+    rewrite ^<%= proxy['location'] %>(.*) $1 break;
+    <% end %>
+    proxy_pass <%= proxy['proxy_pass'] %>;
+  }
+
+  <% end %>
   location / {
     root   <%= @application[:absolute_document_root] %>;
     index  index.html index.htm index.php;
