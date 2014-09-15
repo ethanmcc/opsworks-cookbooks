@@ -1,3 +1,0 @@
-[submodule "sftp"]
-	path = sftp
-	url = git@github.com:ethanmcc/sftp.git
