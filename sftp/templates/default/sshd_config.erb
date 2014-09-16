@@ -28,6 +28,11 @@ PrintLastLog yes
 Subsystem sftp internal-sftp
 
 Match Group sftp
-    ChrootDirectory %h
+    ChrootDirectory /var/sftproot/%u
+    ForceCommand internal-sftp
+    AllowTcpForwarding no
+
+Match User <%= node[:sftp][:admin_username] %>
+    ChrootDirectory /var/sftproot
     ForceCommand internal-sftp
     AllowTcpForwarding no
