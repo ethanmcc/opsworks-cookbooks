@@ -28,6 +28,6 @@ PrintLastLog yes
 Subsystem sftp internal-sftp
 
 Match Group sftp
-    ChrootDirectory /var/sftp/%u
+    ChrootDirectory %h
     ForceCommand internal-sftp
     AllowTcpForwarding no
