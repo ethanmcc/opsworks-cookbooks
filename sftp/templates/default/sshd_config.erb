@@ -8,7 +8,6 @@ Protocol 2
 SyslogFacility AUTHPRIV
 PermitRootLogin no
 PubkeyAuthentication yes
-PasswordAuthentication yes
 PermitEmptyPasswords no
 GssapiAuthentication no
 GssapiCleanUpCredentials yes
@@ -31,6 +30,7 @@ Match Group sftp
     ChrootDirectory /var/sftproot/%u
     ForceCommand internal-sftp
     AllowTcpForwarding no
+    PasswordAuthentication yes
 
 Match User <%= node[:sftp][:admin_username] %>
     ChrootDirectory /var/sftproot
