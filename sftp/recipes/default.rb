@@ -1,12 +1,13 @@
 chef_gem "ruby-shadow"
 
 group "sftp" do
+    gid 502
+    group_name "sftp"
     action :create
 end
 
 node[:sftp][:users].each do |usr|
     user usr.username do
-        gid "sftp"
         home "/home/#{usr.username}"
         password usr.password
         shell "/sbin/nologin"
@@ -21,6 +22,11 @@ node[:sftp][:users].each do |usr|
 
     directory "/home/#{usr.username}/upload" do
         owner usr.username
+    end
+
+    group "sftp" do
+        members usr.username
+        action :modify
     end
 end
 
