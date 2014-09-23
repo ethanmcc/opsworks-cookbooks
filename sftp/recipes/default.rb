@@ -49,11 +49,11 @@ node[:sftp][:users].each do |usr|
     directory "/var/sftproot/#{usr.username}/upload" do
         owner usr.username
     end
+end
 
-    group "sftp" do
-        members usr.username
-        action :modify
-    end
+group "sftp" do
+  members node[:sftp][:users].map {|user| user['username']}
+  action :modify
 end
 
 execute "restart_sshd" do
